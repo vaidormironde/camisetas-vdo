@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lojinha | Vai Dormir Onde?</title>
     
+    <!-- Fonte amigável e moderna do Google -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 
     <style>
@@ -142,6 +143,10 @@
                 <label>Qual o seu nome completo?</label>
                 <input type="text" name="Nome_Cliente" id="nomeCliente" placeholder="Digite seu nome" required>
 
+                <!-- NOVO CAMPO DE E-MAIL AQUI -->
+                <label>📧 Qual o seu melhor e-mail?</label>
+                <input type="email" name="email" id="emailCliente" placeholder="seu@email.com" required>
+
                 <div class="flex-row">
                     <div style="flex:1;"><label>📱 WhatsApp</label><input type="tel" name="WhatsApp" id="inputWhatsApp" placeholder="(00) 00000-0000" maxlength="15" required></div>
                     <div style="flex:1;"><label>📄 CPF (Para envio)</label><input type="text" name="CPF" id="inputCPF" placeholder="000.000.000-00" maxlength="14" required></div>
@@ -223,12 +228,12 @@
 <script>
     // ==========================================
     // 💰 PAINEL DE CONTROLE (Preços e Estoque)
-    // Para tirar uma cor do estoque, mude true para false
     // ==========================================
-    const precoAdulto = 95.00;
-    const precoInfantil = 85.00;
+    const precoAdulto = 97.00;
+    const precoInfantil = 77.00;
     const chavePix = "vaidormironde@gmail.com";
 
+    // 🔴 Para esgotar TODAS as opções de uma cor, mude true para false
     const estoque = {
         "Bóra Viajar!_Preto": true,
         "Bóra Viajar!_Off White": true,
@@ -239,7 +244,18 @@
         "Avelã_Off White": true
     };
 
+    // 🔴 Para esgotar TAMANHOS ESPECÍFICOS, coloque a combinação exata entre aspas
+    // Formato obrigatório: "Estampa_Cor_Tamanho"
+    // Exemplo de uso: ["Bóra Viajar!_Preto_M", "Cachorro_Verde_GG"]
+    const tamanhosEsgotados = ["Cachorro_Off White_P", "Cachorro_Off White_M", "Cachorro_Preto_M", "Cachorro_Verde_P", "Bóra Viajar!_Off White_P", "Bóra Viajar!_Off White_M", "Bóra Viajar!_Preto_M",
+    "Bóra Viajar!_Verde_P", "Bóra Viajar!_Verde_G", "Avelã_Off White_P", "Avelã_Off White_M", "Avelã_Off White_G", "Avelã_Off White_GG"
+        
+    ];
+
     const cuponsCadastrados = { 
+        "VDO10": { tipo: "porcentagem", valor: 10 }, 
+        "FRETEGRATIS": { tipo: "fixo", valor: 30 }, 
+        "BOLIVIA": { tipo: "porcentagem", valor: 15 },
         "AVELOVER20": { tipo: "porcentagem", valor: 20 }
     };
     // ==========================================
@@ -256,7 +272,6 @@
         "Avelã_Off White": ["img/camiseta_avelamochileira_branco.png"]
     };
 
-    // Função que verifica se pelo menos UMA cor da estampa tem estoque
     function estampaTemEstoque(nomeEstampa) {
         for (let chave in estoque) {
             if (chave.startsWith(nomeEstampa + "_") && estoque[chave] === true) {
@@ -347,15 +362,21 @@
     }
 
     function copiarNomeComprador() { document.getElementById('nomePix').value = document.getElementById('nomeCliente').value; }
+    
     function tratarTamanho(id) {
-        const item = document.getElementById('item-' + id); const tam = item.querySelector('.p-tamanho').value;
-        const box = document.getElementById('infantil-box-' + id); box.style.display = tam === 'Infantil' ? 'block' : 'none';
+        const item = document.getElementById('item-' + id); 
+        const selectTam = item.querySelector('.p-tamanho');
+        const tam = selectTam.value;
+        const box = document.getElementById('infantil-box-' + id); 
+        box.style.display = tam === 'Infantil' ? 'block' : 'none';
         item.querySelector('.p-tamanho-infantil').required = (tam === 'Infantil');
     }
+
     function virarCartao(id) {
         document.getElementById('flip-inner-' + id).classList.toggle('is-flipped');
         const link = document.getElementById('link-flip-' + id); link.innerText = link.innerText.includes("Ver") ? "👕 Voltar para Foto" : "📐 Ver Tabela de Medidas";
     }
+
     function mudarFoto(id, direcao) {
         const item = document.getElementById('item-' + id); const estampa = item.querySelector('.p-estampa').value;
         const selectCor = item.querySelector('.p-cor').value; const chave = estampa + "_" + selectCor;
@@ -366,16 +387,21 @@
     }
     
     function atualizarInterface(id) {
-        const item = document.getElementById('item-' + id); const estampa = item.querySelector('.p-estampa').value;
-        const selectCor = item.querySelector('.p-cor'); const img = document.getElementById('img-' + id);
-        const ph = document.getElementById('ph-' + id); const btnPrev = document.getElementById('btn-prev-' + id);
+        const item = document.getElementById('item-' + id); 
+        const estampa = item.querySelector('.p-estampa').value;
+        const selectCor = item.querySelector('.p-cor'); 
+        const selectTamanho = item.querySelector('.p-tamanho'); 
+        const img = document.getElementById('img-' + id);
+        const ph = document.getElementById('ph-' + id); 
+        const btnPrev = document.getElementById('btn-prev-' + id);
         const btnNext = document.getElementById('btn-next-' + id);
         
+        // --- 1. Atualiza disponibilidade de Cor ---
         if (estampa) {
             Array.from(selectCor.options).forEach(opt => {
                 if (opt.value !== "") {
-                    opt.text = opt.value; // Reseta o texto
-                    opt.disabled = false; // Reseta o estado
+                    opt.text = opt.value; 
+                    opt.disabled = false; 
                     
                     if (estampa === "Avelã" && opt.value !== "Off White") {
                         opt.disabled = true;
@@ -389,22 +415,56 @@
                 }
             });
             
-            // Limpa o campo de cor se a opção atual ficou desabilitada
             if (selectCor.options[selectCor.selectedIndex] && selectCor.options[selectCor.selectedIndex].disabled) {
                 selectCor.value = "";
             }
         }
 
-        const chave = estampa + "_" + selectCor.value; const listaFotos = imagens[chave];
+        const corSelecionada = selectCor.value;
+
+        // --- 2. Atualiza disponibilidade de Tamanho (A Nova Trava!) ---
+        if (estampa && corSelecionada) {
+            Array.from(selectTamanho.options).forEach(opt => {
+                if (opt.value !== "") {
+                    opt.text = opt.value; // Volta pro padrão "M", "G", etc.
+                    opt.disabled = false;
+                    
+                    const chaveTamanho = estampa + "_" + corSelecionada + "_" + opt.value;
+                    
+                    if (tamanhosEsgotados.includes(chaveTamanho)) {
+                        opt.disabled = true;
+                        opt.text = opt.value + " (ESGOTADO ⏳)";
+                    }
+                }
+            });
+
+            // Se o tamanho que a pessoa estava selecionado ficar indisponível de repente, limpa o campo
+            if (selectTamanho.options[selectTamanho.selectedIndex] && selectTamanho.options[selectTamanho.selectedIndex].disabled) {
+                selectTamanho.value = "";
+                tratarTamanho(id); // Já esconde o box infantil também, se necessário
+            }
+        } else {
+            // Se mudou a estampa e zerou a cor, zera os tamanhos pro estado normal
+            Array.from(selectTamanho.options).forEach(opt => {
+                if (opt.value !== "") { opt.text = opt.value; opt.disabled = false; }
+            });
+        }
+
+        // --- 3. Atualiza Imagens ---
+        const chaveImg = estampa + "_" + corSelecionada; 
+        const listaFotos = imagens[chaveImg];
+        
         if (listaFotos && listaFotos.length > 0) { 
             indicesCarrossel[id] = 0; img.src = listaFotos[0]; img.style.display = 'block'; ph.style.display = 'none'; 
             if (listaFotos.length > 1) { btnPrev.style.display = 'flex'; btnNext.style.display = 'flex'; } 
             else { btnPrev.style.display = 'none'; btnNext.style.display = 'none'; }
         } else { img.style.display = 'none'; ph.style.display = 'block'; btnPrev.style.display = 'none'; btnNext.style.display = 'none'; }
+        
         calcularTotal();
     }
     
     function removerItem(id) { document.getElementById('item-' + id).remove(); calcularTotal(); }
+    
     function aplicarCupom() {
         const input = document.getElementById('inputCupom').value.trim().toUpperCase(); const msg = document.getElementById('msgCupom');
         if (input === "") return;
@@ -415,6 +475,7 @@
         } else { cupomAtivo = null; nomeCupomAtivo = ""; msg.innerText = "❌ Ops! Esse cupom parece inválido ou já expirou."; msg.className = "msg-cupom msg-erro"; }
         calcularTotal();
     }
+    
     function calcularTotal() {
         let subTotal = 0; let completo = false;
         document.querySelectorAll('.item-pedido').forEach(it => {
@@ -438,6 +499,7 @@
             document.getElementById('totalInput').value = relatorioFinal; document.getElementById('totalPix').innerText = valorFormatado;
         } else { document.getElementById('totalDisplay').innerHTML = "R$ **,**" + textoFrete; document.getElementById('totalInput').value = "Aguardando preenchimento"; document.getElementById('totalPix').innerText = "R$ 0,00"; }
     }
+    
     function copiarPix() { navigator.clipboard.writeText(chavePix); alert("Chave Pix copiada com sucesso! Só colar no app do seu banco. 🚐💨"); }
 
     document.getElementById('formVDO').onsubmit = function(e) {
