@@ -43,6 +43,9 @@
         .header h2 { margin: 5px 0; color: var(--vdo-magenta); font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
         .header p { font-size: 15px; color: var(--vdo-orange); margin-top: 0; font-weight: 600; }
         
+        /* NOVO: Estilo para a vitrine de camisetas */
+        .img-vitrine { width: 100%; border-radius: 20px; margin-top: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); object-fit: cover; border: 2px solid rgba(26, 35, 126, 0.05); }
+
         .item-pedido { 
             background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
             padding: 25px; border-radius: 20px; margin-bottom: 25px; 
@@ -127,6 +130,9 @@
         <div class="header">
             <h2>🚐 VAI DORMIR ONDE?</h2>
             <p>Leve um pedacinho da nossa jornada com você! ✨</p>
+            
+            <!-- AQUI ESTÁ A NOSSA VITRINE DE CAMISETAS -->
+            <img src="img/vitrine-camisetas.png" alt="Conheça nossas estampas" class="img-vitrine">
         </div>
 
         <form id="formVDO">
@@ -143,7 +149,6 @@
                 <label>Qual o seu nome completo?</label>
                 <input type="text" name="Nome_Cliente" id="nomeCliente" placeholder="Digite seu nome" required>
 
-                <!-- NOVO CAMPO DE E-MAIL AQUI -->
                 <label>📧 Qual o seu melhor e-mail?</label>
                 <input type="email" name="email" id="emailCliente" placeholder="seu@email.com" required>
 
@@ -247,8 +252,7 @@
     // 🔴 Para esgotar TAMANHOS ESPECÍFICOS, coloque a combinação exata entre aspas
     // Formato obrigatório: "Estampa_Cor_Tamanho"
     // Exemplo de uso: ["Bóra Viajar!_Preto_M", "Cachorro_Verde_GG"]
-    const tamanhosEsgotados = ["Cachorro_Off White_P", "Cachorro_Off White_M", "Cachorro_Preto_M", "Cachorro_Verde_P", "Bóra Viajar!_Off White_P", "Bóra Viajar!_Off White_M", "Bóra Viajar!_Preto_M",
-    "Bóra Viajar!_Verde_P", "Bóra Viajar!_Verde_G", "Avelã_Off White_P", "Avelã_Off White_M", "Avelã_Off White_G", "Avelã_Off White_GG"
+    const tamanhosEsgotados = [
         
     ];
 
