@@ -65,6 +65,9 @@
         .divisor-camisetas h3 { color: var(--vdo-blue-dark); font-size: 18px; margin-bottom: 10px; }
         .img-vitrine-pequena { width: 100%; max-width: 400px; border-radius: 15px; margin-bottom: 15px; opacity: 0.9; }
 
+        /* AVISO ENVIO */
+        .aviso-envio { background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 15px; font-size: 13px; font-weight: 700; border: 1px solid #ffeeba; margin-bottom: 20px; text-align: center; }
+
         /* O RESTO MANTIDO IGUAL */
         .item-pedido { background: #fff; padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 1px solid rgba(26, 35, 126, 0.1); display: grid; grid-template-columns: 1fr 220px; gap: 25px; align-items: center; }
         .flex-row { display: flex; gap: 15px; }
@@ -110,7 +113,7 @@
             <!-- BANNER ADICIONADO NO LUGAR DO TÍTULO ANTIGO -->
             <img src="img/BANNER_AVELA.png" alt="Força Avelã" class="img-banner">
             
-            <q class="texto-emocional">A Avelã 🐶 está em tratamento de um câncer agressivo no coração ❤️‍🩹 e criamos esse combo especial de adesivos para arrecadar fundos.</q>
+            <q class="texto-emocional">A Avelã está em tratamento de um câncer agressivo no coração e criamos esse combo especial de adesivos para arrecadar fundos.</q>
         </div>
 
         <!-- CARROSSEL DE IMAGENS DOS ADESIVOS -->
@@ -121,7 +124,7 @@
         </div>
         
         <!-- RESTANTE DO TEXTO EMOCIONAL MOVIDO PARA CÁ -->
-        <p class="texto-emocional" style="margin-bottom: 30px;">Fomos surpreendidos por essa notícia enquanto percorremos o Canadá 🚐 🇨🇦 e não estamos medindo esforços pra dar toda qualidade de vida pra ela. Todo o valor será revertido para a saúde dela. Muito obrigado por fazer parte dessa rede de apoio! 💛</p>
+        <p class="texto-emocional" style="margin-bottom: 30px;">Fomos surpreendidos por essa notícia enquanto percorremos o Canadá e não estamos medindo esforços pra dar toda qualidade de vida pra ela. Todo o valor será revertido para a saúde dela. Muito obrigado por fazer parte dessa rede de apoio! 💛</p>
 
         <!-- TERMÔMETRO DA CAMPANHA -->
         <div class="progress-box">
@@ -220,6 +223,11 @@
                 <span>VALOR TOTAL (COM FRETE GRÁTIS):</span>
                 <span class="total-val" id="totalDisplay">R$ 35,00</span>
                 <input type="hidden" name="VALOR_TOTAL_PEDIDO" id="totalInput" value="TOTAL FINAL: R$ 35,00">
+            </div>
+
+            <!-- NOVO AVISO DE ENVIO ADICIONADO AQUI -->
+            <div class="aviso-envio">
+                ⚠️ Importante: Os adesivos serão enviados em lotes, sendo que o primeiro será postado dia 05/10/2026.
             </div>
 
             <button type="submit" class="btn-enviar" id="btnSubmit">🚀 FECHAR PEDIDO E FAZER PARTE DO TIME AVELOVER!</button>
