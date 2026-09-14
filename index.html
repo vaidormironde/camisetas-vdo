@@ -23,11 +23,11 @@
         
         .header { text-align: center; margin-bottom: 25px; }
         .img-banner { width: 100%; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); margin-bottom: 15px; }
-        .header q { font-size: 12px; color: var(--vdo-dark); margin-top: 3px; font-weight: 600; }
-        .texto-emocional { font-size: 15px; color: #555; margin: 15px 0; line-height: 1.6; padding: 0 15px; display: block; }
+        .header q { font-size: 14px; color: var(--vdo-dark); margin-top: 3px; font-weight: 600; font-style: italic; }
+        .texto-emocional { font-size: 15px; color: #555; margin: 15px 0; line-height: 1.6; padding: 0 15px; display: block; text-align: center; }
 
         /* CARROSSEL ADESIVOS */
-        .hero-carousel { width: 100%; height: 350px; position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); background: #fff; margin-bottom: 25px; border: 2px solid rgba(255, 152, 0, 0.3); }
+        .hero-carousel { width: 100%; height: 350px; position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); background: #fff; margin-bottom: 15px; border: 2px solid rgba(255, 152, 0, 0.3); }
         .slide-adesivo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.8s ease-in-out; }
         .slide-adesivo.active { opacity: 1; }
         .carousel-control { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(26, 35, 126, 0.7); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
@@ -110,7 +110,7 @@
             <!-- BANNER ADICIONADO NO LUGAR DO TÍTULO ANTIGO -->
             <img src="img/BANNER_AVELA.png" alt="Força Avelã" class="img-banner">
             
-            <q class="texto-emocional">A Avelã está em tratamento de um câncer agressivo no coração e criamos esse combo especial de adesivos para arrecadar fundos. Fomos surpreendidos por essa notícia enquanto percorremos o Canadá e não estamos medindo esforços pra dar toda qualidade de vida pra ela. Todo o valor será revertido para a saúde dela. Muito obrigado por fazer parte dessa rede de apoio! 💛</q>
+            <q class="texto-emocional">A Avelã 🐶 está em tratamento de um câncer agressivo no coração ❤️‍🩹 e criamos esse combo especial de adesivos para arrecadar fundos.</q>
         </div>
 
         <!-- CARROSSEL DE IMAGENS DOS ADESIVOS -->
@@ -119,6 +119,9 @@
             <div id="slidesContainer"></div>
             <button class="carousel-control control-next" onclick="mudarSlideAdesivo(1)">&#10095;</button>
         </div>
+        
+        <!-- RESTANTE DO TEXTO EMOCIONAL MOVIDO PARA CÁ -->
+        <p class="texto-emocional" style="margin-bottom: 30px;">Fomos surpreendidos por essa notícia enquanto percorremos o Canadá 🚐 🇨🇦 e não estamos medindo esforços pra dar toda qualidade de vida pra ela. Todo o valor será revertido para a saúde dela. Muito obrigado por fazer parte dessa rede de apoio! 💛</p>
 
         <!-- TERMÔMETRO DA CAMPANHA -->
         <div class="progress-box">
@@ -161,8 +164,8 @@
                 </div>
             </div>
 
-            <!-- CAMISETAS -->
-            <div class="divisor-camisetas">
+            <!-- CAMISETAS OCULTAS -->
+            <div class="divisor-camisetas" style="display: none;">
                 <h3>👕 Quer adicionar uma camiseta?</h3>
                 <img src="img/vitrine-camisetas.png" alt="Camisetas VDO" class="img-vitrine-pequena">
                 <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Nossas camisetas continuam disponíveis! O valor da compra também soma para ajudar a Avelã.</p>
