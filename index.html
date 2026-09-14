@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lojinha | Vai Dormir Onde?</title>
+    <title>Ajude a Avelã | Vai Dormir Onde?</title>
     
-    <!-- Fonte amigável e moderna do Google -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
 
     <style>
@@ -14,56 +13,62 @@
             --vdo-orange: #ff9800;    
             --vdo-blue-dark: #1a237e; 
             --vdo-blue-light: #2196f3;
-            --vdo-purple: #9c27b0;     
             --vdo-bg-light: #fdfaf5;   
             --vdo-yellow: #ffcc00; 
             --vdo-dark: #222; 
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--vdo-blue-dark); 
-            margin: 0;
-            padding: 20px;
-            color: var(--vdo-blue-dark); 
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--vdo-blue-dark); margin: 0; padding: 20px; color: var(--vdo-blue-dark); }
+        .container { max-width: 700px; background: var(--vdo-bg-light); padding: 40px; border-radius: 30px; box-shadow: 0 15px 50px rgba(0,0,0,0.3); margin: auto; position: relative; }
         
-        .container {
-            max-width: 700px;
-            background: var(--vdo-bg-light);
-            padding: 40px;
-            border-radius: 30px; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
-            margin: auto;
-            min-height: 400px;
-            position: relative;
-        }
-        
-        .header { text-align: center; margin-bottom: 35px; }
-        .header h2 { margin: 5px 0; color: var(--vdo-magenta); font-size: 32px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
-        .header p { font-size: 15px; color: var(--vdo-orange); margin-top: 0; font-weight: 600; }
-        
-        /* NOVO: Estilo para a vitrine de camisetas */
-        .img-vitrine { width: 100%; border-radius: 20px; margin-top: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); object-fit: cover; border: 2px solid rgba(26, 35, 126, 0.05); }
+        .header { text-align: center; margin-bottom: 25px; }
+        .img-banner { width: 100%; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .header q { font-size: 12px; color: var(--vdo-dark); margin-top: 3px; font-weight: 600; }
+        .texto-emocional { font-size: 15px; color: #555; margin: 15px 0; line-height: 1.6; padding: 0 15px; display: block; }
 
-        .item-pedido { 
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
-            padding: 25px; border-radius: 20px; margin-bottom: 25px; 
-            position: relative; border: 1px solid rgba(26, 35, 126, 0.1); 
-            display: grid; grid-template-columns: 1fr 220px; gap: 25px; align-items: center;
-        }
+        /* CARROSSEL ADESIVOS */
+        .hero-carousel { width: 100%; height: 350px; position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1); background: #fff; margin-bottom: 25px; border: 2px solid rgba(255, 152, 0, 0.3); }
+        .slide-adesivo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.8s ease-in-out; }
+        .slide-adesivo.active { opacity: 1; }
+        .carousel-control { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(26, 35, 126, 0.7); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .carousel-control:hover { background: var(--vdo-orange); }
+        .control-prev { left: 10px; } .control-next { right: 10px; }
 
+        /* BARRA DE PROGRESSO */
+        .progress-box { background: white; padding: 20px; border-radius: 20px; border: 2px dashed #ddd; margin-bottom: 30px; text-align: center; }
+        .progress-title { font-weight: 900; color: var(--vdo-blue-dark); font-size: 16px; margin-bottom: 10px; text-transform: uppercase; }
+        .progress-bar-container { width: 100%; background-color: #eee; border-radius: 25px; height: 25px; overflow: hidden; position: relative; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--vdo-orange), var(--vdo-magenta)); width: 0%; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .progress-text { font-size: 14px; font-weight: 700; margin-top: 10px; color: #666; }
+        .progress-text span.highlight { color: var(--vdo-magenta); font-weight: 900; font-size: 16px; }
+
+        /* CARD COMBO SOLIDÁRIO */
+        .combo-card { background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(233, 30, 99, 0.1) 100%); padding: 25px; border-radius: 20px; border: 2px solid var(--vdo-orange); margin-bottom: 30px; text-align: center; }
+        .combo-title { font-size: 22px; font-weight: 900; color: var(--vdo-magenta); margin: 0 0 10px 0; }
+        .combo-desc { font-size: 14px; font-weight: 600; color: var(--vdo-blue-dark); margin-bottom: 15px; }
+        
+        .qtd-control { display: inline-flex; align-items: center; background: white; border-radius: 30px; padding: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .qtd-control button { background: none; border: none; font-size: 20px; font-weight: bold; color: var(--vdo-orange); width: 40px; height: 40px; cursor: pointer; border-radius: 50%; }
+        .qtd-control button:hover { background: #fff0db; }
+        .qtd-control span { padding: 0 20px; font-size: 18px; font-weight: 900; color: var(--vdo-blue-dark); }
+
+        .doacao-extra-box { background: white; padding: 15px; border-radius: 15px; border: 1px solid rgba(26,35,126,0.1); margin-top: 15px; }
+        .doacao-extra-box p { font-size: 13px; font-weight: 700; margin: 0 0 10px 0; color: var(--vdo-blue-dark); }
+        .btn-doar { font-family: 'Poppins', sans-serif; background: #eee; border: none; padding: 8px 15px; border-radius: 20px; font-weight: 700; color: var(--vdo-blue-dark); cursor: pointer; transition: 0.2s; font-size: 13px; margin: 3px; }
+        .btn-doar:hover { background: var(--vdo-orange); color: white; }
+        .doacao-aviso { font-size: 12px; color: #888; margin-top: 10px; font-style: italic; }
+        
+        .doacao-resumo { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc; font-size: 16px; font-weight: 900; color: var(--vdo-magenta); }
+
+        /* DIVISOR CAMISETAS */
+        .divisor-camisetas { border-top: 2px dashed rgba(26, 35, 126, 0.2); margin: 40px 0 20px 0; padding-top: 20px; text-align: center; }
+        .divisor-camisetas h3 { color: var(--vdo-blue-dark); font-size: 18px; margin-bottom: 10px; }
+        .img-vitrine-pequena { width: 100%; max-width: 400px; border-radius: 15px; margin-bottom: 15px; opacity: 0.9; }
+
+        /* O RESTO MANTIDO IGUAL */
+        .item-pedido { background: #fff; padding: 25px; border-radius: 20px; margin-bottom: 25px; border: 1px solid rgba(26, 35, 126, 0.1); display: grid; grid-template-columns: 1fr 220px; gap: 25px; align-items: center; }
         .flex-row { display: flex; gap: 15px; }
-
-        @media (max-width: 600px) { 
-            body { padding: 10px; }
-            .container { padding: 25px 15px; border-radius: 20px; }
-            .item-pedido { grid-template-columns: 1fr; padding: 20px; } 
-            .img-flip-wrapper { order: -1; margin-bottom: 15px; } 
-            .flex-row { flex-direction: column; gap: 10px; }
-            .carousel-btn { width: 44px !important; height: 44px !important; font-size: 20px !important; }
-        }
-
+        @media (max-width: 600px) { body { padding: 10px; } .container { padding: 25px 15px; } .item-pedido { grid-template-columns: 1fr; padding: 20px; } .hero-carousel { height: 280px; } .flex-row { flex-direction: column; gap: 10px; } }
         .img-flip-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; }
         .flip-container { perspective: 1000px; width: 100%; height: 250px; position: relative; }
         .flip-inner { position: absolute; width: 100%; height: 100%; top: 0; left: 0; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); transform-style: preserve-3d; }
@@ -73,54 +78,28 @@
         .flip-front img, .flip-back img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .flip-front img { display: none; }
         .flip-back { transform: rotateY(180deg); padding: 10px; display: flex; align-items: center; justify-content: center; }
-        
-        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 152, 0, 0.8); color: white; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 16px; opacity: 1; transition: background 0.3s; z-index: 5; }
-        .carousel-btn:hover { background: var(--vdo-magenta); } 
-        .carousel-btn.left { left: 8px; }
-        .carousel-btn.right { right: 8px; }
-
-        .placeholder-text { color: #aaa; font-size: 12px; text-transform: uppercase; font-weight: 700; text-align: center; padding: 10px; position: absolute; }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 152, 0, 0.8); color: white; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: none; align-items: center; justify-content: center; opacity: 1; z-index: 5; }
+        .carousel-btn.left { left: 8px; } .carousel-btn.right { right: 8px; }
+        .placeholder-text { color: #aaa; font-size: 12px; text-transform: uppercase; font-weight: 700; text-align: center; position: absolute; }
         .link-guia { margin-top: 15px; font-size: 13px; color: var(--vdo-orange); text-decoration: underline; cursor: pointer; font-weight: 700; z-index: 10; position: relative; }
-        .btn-remover { position: absolute; top: -12px; right: -12px; background: #ff4d4f; color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-weight: bold; box-shadow: 0 3px 6px rgba(0,0,0,0.3); z-index: 10; font-size: 18px; }
-        
-        label { display: block; margin-top: 15px; font-weight: 700; font-size: 12px; color: var(--vdo-blue-dark); text-transform: uppercase; letter-spacing: 0.5px; }
-        select, input, textarea { font-family: 'Poppins', sans-serif; width: 100%; padding: 14px; margin-top: 6px; border: 2px solid rgba(26, 35, 126, 0.1); border-radius: 20px; box-sizing: border-box; font-size: 15px; outline: none; background-color: #fff; color: var(--vdo-blue-dark); transition: border-color 0.3s, box-shadow 0.3s; }
-        select:focus, input:focus { border-color: var(--vdo-orange); box-shadow: 0 0 10px rgba(255, 152, 0, 0.2); }
-        
-        /* Deixa as opções esgotadas em cinza */
+        .btn-remover { position: absolute; top: -12px; right: -12px; background: #ff4d4f; color: white; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-weight: bold; z-index: 10; font-size: 18px; }
+        label { display: block; margin-top: 15px; font-weight: 700; font-size: 12px; color: var(--vdo-blue-dark); text-transform: uppercase; }
+        select, input { font-family: 'Poppins', sans-serif; width: 100%; padding: 14px; margin-top: 6px; border: 2px solid rgba(26, 35, 126, 0.1); border-radius: 20px; box-sizing: border-box; font-size: 15px; outline: none; background-color: #fff; color: var(--vdo-blue-dark); }
+        select:focus, input:focus { border-color: var(--vdo-orange); }
         option:disabled { color: #ccc; font-style: italic; }
-
-        .btn-adicionar { font-family: 'Poppins', sans-serif; background: white; border: 2px dashed var(--vdo-orange); padding: 18px; width: 100%; border-radius: 30px; cursor: pointer; font-weight: 700; color: var(--vdo-orange); margin-bottom: 30px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: background 0.3s, color 0.3s; }
-        .btn-adicionar:hover { background: var(--vdo-orange); color: white; }
-        
+        .btn-adicionar { font-family: 'Poppins', sans-serif; background: white; border: 2px dashed var(--vdo-orange); padding: 18px; width: 100%; border-radius: 30px; cursor: pointer; font-weight: 700; color: var(--vdo-orange); font-size: 14px; text-transform: uppercase; }
         .secao-cliente { border-top: 2px solid rgba(26, 35, 126, 0.1); padding-top: 25px; margin-top: 10px; }
-        .secao-titulo { font-size: 18px; font-weight: 900; margin-bottom: 20px; color: var(--vdo-orange); text-transform: uppercase; letter-spacing: 1px; }
-        .pix-name-wrapper { position: relative; display: flex; align-items: flex-end; gap: 10px; }
-        .btn-mesmo-nome { font-family: 'Poppins', sans-serif; background: #eee; border: 1px solid #ccc; padding: 12px; border-radius: 15px; cursor: pointer; font-size: 11px; font-weight: 700; height: 50px; white-space: nowrap; color: var(--vdo-blue-dark); }
-
-        .cupom-box { background: rgba(255, 152, 0, 0.05); padding: 20px; border-radius: 20px; border: 2px dashed var(--vdo-orange); margin-top: 25px; }
-        .cupom-box label { color: var(--vdo-orange); margin-top: 0; }
-        .btn-cupom { font-family: 'Poppins', sans-serif; background: var(--vdo-orange); color: white; border: none; padding: 0 25px; border-radius: 25px; font-weight: 700; cursor: pointer; transition: background 0.3s; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
-        .btn-cupom:hover { background: #e68900; }
-        .msg-cupom { font-size: 13px; margin-top: 10px; font-weight: 700; display: none; }
-        .msg-sucesso { color: #28a745; display: block; }
-        .msg-erro { color: #dc3545; display: block; }
-
+        .secao-titulo { font-size: 18px; font-weight: 900; margin-bottom: 20px; color: var(--vdo-orange); text-transform: uppercase; }
+        .btn-mesmo-nome { font-family: 'Poppins', sans-serif; background: #eee; border: 1px solid #ccc; padding: 12px; border-radius: 15px; cursor: pointer; font-size: 11px; font-weight: 700; height: 50px; color: var(--vdo-blue-dark); white-space: nowrap; }
+        .pix-name-wrapper { display: flex; align-items: flex-end; gap: 10px; }
         .footer-total { background: var(--vdo-dark); color: white; padding: 20px; border-radius: 15px; text-align: center; margin: 25px 0; }
         .total-val { font-size: 36px; color: var(--vdo-yellow); font-weight: 900; display: block; }
-        .preco-cortado { text-decoration: line-through; color: #999; font-size: 18px; margin-right: 10px; font-weight: normal; }
+        .btn-enviar { font-family: 'Poppins', sans-serif; width: 100%; padding: 22px; background-color: var(--vdo-magenta); border: none; border-radius: 35px; color: white; font-weight: 900; font-size: 18px; cursor: pointer; text-transform: uppercase; box-shadow: 0 5px 20px rgba(233, 30, 99, 0.4); }
         
-        .btn-enviar { font-family: 'Poppins', sans-serif; width: 100%; padding: 22px; background-color: var(--vdo-magenta); border: none; border-radius: 35px; color: white; font-weight: 900; font-size: 18px; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; transition: background 0.3s, box-shadow 0.3s; box-shadow: 0 5px 20px rgba(233, 30, 99, 0.4); }
-        .btn-enviar:hover { background-color: #d81b60; box-shadow: 0 8px 25px rgba(233, 30, 99, 0.5); }
-
-        #telaPagamento { display: none; text-align: center; padding: 30px; animation: fadeIn 0.5s ease-in-out; background: linear-gradient(135deg, rgba(33, 150, 243, 0.05) 0%, rgba(156, 39, 176, 0.05) 100%); border-radius: 30px; }
-        .pix-box { background: #fdfaf5; border: 3px dashed var(--vdo-magenta); padding: 30px; border-radius: 20px; margin: 25px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        #telaPagamento .total-val { color: var(--vdo-dark); margin-bottom: 20px; }
+        #telaPagamento { display: none; text-align: center; padding: 30px; background: linear-gradient(135deg, rgba(33, 150, 243, 0.05) 0%, rgba(156, 39, 176, 0.05) 100%); border-radius: 30px; }
+        .pix-box { background: #fdfaf5; border: 3px dashed var(--vdo-magenta); padding: 30px; border-radius: 20px; margin: 25px 0; }
         .chave-pix { font-size: 18px; font-weight: 700; color: var(--vdo-blue-dark); display: block; margin: 15px 0; word-break: break-all; background: #eee; padding: 12px; border-radius: 10px; }
-        .btn-copiar { font-family: 'Poppins', sans-serif; background: var(--vdo-magenta); color: white; border: none; padding: 14px 30px; border-radius: 25px; cursor: pointer; font-weight: 700; margin-top: 15px; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; transition: background 0.3s; }
-        .btn-copiar:hover { background: #d81b60; }
-        
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .btn-copiar { font-family: 'Poppins', sans-serif; background: var(--vdo-magenta); color: white; border: none; padding: 14px 30px; border-radius: 25px; cursor: pointer; font-weight: 700; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -128,11 +107,28 @@
 <div class="container">
     <div id="conteudoForm">
         <div class="header">
-            <h2>🚐 VAI DORMIR ONDE?</h2>
-            <p>Leve um pedacinho da nossa jornada com você! ✨</p>
+            <!-- BANNER ADICIONADO NO LUGAR DO TÍTULO ANTIGO -->
+            <img src="img/BANNER_AVELA.png" alt="Força Avelã" class="img-banner">
             
-            <!-- AQUI ESTÁ A NOSSA VITRINE DE CAMISETAS -->
-            <img src="img/vitrine-camisetas.png" alt="Conheça nossas estampas" class="img-vitrine">
+            <q class="texto-emocional">A Avelã está em tratamento de um câncer agressivo no coração e criamos esse combo especial de adesivos para arrecadar fundos. Fomos surpreendidos por essa notícia enquanto percorremos o Canadá e não estamos medindo esforços pra dar toda qualidade de vida pra ela. Todo o valor será revertido para a saúde dela. Muito obrigado por fazer parte dessa rede de apoio! 💛</q>
+        </div>
+
+        <!-- CARROSSEL DE IMAGENS DOS ADESIVOS -->
+        <div class="hero-carousel" id="carrosselAdesivos">
+            <button class="carousel-control control-prev" onclick="mudarSlideAdesivo(-1)">&#10094;</button>
+            <div id="slidesContainer"></div>
+            <button class="carousel-control control-next" onclick="mudarSlideAdesivo(1)">&#10095;</button>
+        </div>
+
+        <!-- TERMÔMETRO DA CAMPANHA -->
+        <div class="progress-box">
+            <div class="progress-title">📈 Meta da Campanha!</div>
+            <div class="progress-bar-container">
+                <div class="progress-fill" id="barraProgresso"></div>
+            </div>
+            <div class="progress-text">
+                Já alcançamos <span class="highlight"><span id="txtPorcentagem">0</span>%</span> da nossa meta para o tratamento!
+            </div>
         </div>
 
         <form id="formVDO">
@@ -140,45 +136,73 @@
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="RESUMO_DO_PEDIDO" id="resumoInput">
 
-            <div id="listaItens"></div>
+            <!-- CARD DO COMBO SOLIDÁRIO -->
+            <div class="combo-card">
+                <h3 class="combo-title">💌 ADESIVOS #FORÇAAVELÃ</h3>
+                <p class="combo-desc">2x Adesivos Exclusivos<br><strong>Valor Mínimo: R$ 35,00</strong> (Frete Grátis)</p>
+                
+                <div class="qtd-control">
+                    <button type="button" onclick="mudarQtdCombo(-1)">-</button>
+                    <span id="qtdComboDisplay">1</span>
+                    <button type="button" onclick="mudarQtdCombo(1)">+</button>
+                </div>
 
-            <button type="button" class="btn-adicionar" onclick="adicionarCamiseta()">👕 + QUERO ADICIONAR OUTRA CAMISETA!</button>
+                <div class="doacao-extra-box">
+                    <p>Quer ajudar um pouco mais? Adicione uma doação extra (opcional):</p>
+                    <button type="button" class="btn-doar" onclick="adicionarDoacao(10)">+ R$ 10</button>
+                    <button type="button" class="btn-doar" onclick="adicionarDoacao(50)">+ R$ 50</button>
+                    <button type="button" class="btn-doar" onclick="adicionarDoacao(100)">+ R$ 100</button>
+                    <button type="button" class="btn-doar" onclick="adicionarDoacao(0)" style="background: #ccc;">Zerar Extra</button>
+                    <div class="doacao-aviso">Doação extra atual: R$ <span id="valorExtraDisplay">0,00</span></div>
+                    
+                    <div class="doacao-resumo">
+                        Sua contribuição para a Avelã: <span id="subtotalDoacaoDisplay">R$ 35,00</span>
+                    </div>
+                </div>
+            </div>
 
+            <!-- CAMISETAS -->
+            <div class="divisor-camisetas">
+                <h3>👕 Quer adicionar uma camiseta?</h3>
+                <img src="img/vitrine-camisetas.png" alt="Camisetas VDO" class="img-vitrine-pequena">
+                <p style="font-size: 13px; color: #666; margin-bottom: 20px;">Nossas camisetas continuam disponíveis! O valor da compra também soma para ajudar a Avelã.</p>
+                <div id="listaItens"></div>
+                <button type="button" class="btn-adicionar" onclick="adicionarCamiseta()">+ ADICIONAR UMA CAMISETA</button>
+            </div>
+
+            <!-- FORMULÁRIO DE CLIENTE -->
             <div class="secao-cliente">
-                <div class="secao-titulo">👤 Pra gente se conhecer!</div>
+                <div class="secao-titulo">👤 Pra gente enviar seu pacote!</div>
                 <label>Qual o seu nome completo?</label>
-                <input type="text" name="Nome_Cliente" id="nomeCliente" placeholder="Digite seu nome" required>
+                <input type="text" name="Nome_Cliente" id="nomeCliente" required>
 
                 <label>📧 Qual o seu melhor e-mail?</label>
-                <input type="email" name="email" id="emailCliente" placeholder="seu@email.com" required>
+                <input type="email" name="email" id="emailCliente" required>
 
                 <div class="flex-row">
-                    <div style="flex:1;"><label>📱 WhatsApp</label><input type="tel" name="WhatsApp" id="inputWhatsApp" placeholder="(00) 00000-0000" maxlength="15" required></div>
-                    <div style="flex:1;"><label>📄 CPF (Para envio)</label><input type="text" name="CPF" id="inputCPF" placeholder="000.000.000-00" maxlength="14" required></div>
+                    <div style="flex:1;"><label>📱 WhatsApp</label><input type="tel" name="WhatsApp" id="inputWhatsApp" maxlength="15" required></div>
+                    <div style="flex:1;"><label>📄 CPF (Para envio)</label><input type="text" name="CPF" id="inputCPF" maxlength="14" required></div>
                 </div>
 
                 <label>💳 Nome na conta do PIX</label>
                 <div class="pix-name-wrapper">
-                    <input type="text" name="Nome_no_Pix" id="nomePix" placeholder="Nome que vai aparecer no comprovante" required>
+                    <input type="text" name="Nome_no_Pix" id="nomePix" placeholder="Nome no comprovante" required>
                     <button type="button" class="btn-mesmo-nome" onclick="copiarNomeComprador()">☝️ É O MESMO</button>
                 </div>
             </div>
 
             <div class="secao-cliente">
-                <div class="secao-titulo">📍 Onde a van vai entregar?</div>
+                <div class="secao-titulo">📍 Endereço de Entrega</div>
                 <label>CEP</label>
-                <input type="text" name="CEP" id="inputCEP" placeholder="00000-000" maxlength="9" required style="max-width: 200px;">
-                
+                <input type="text" name="CEP" id="inputCEP" maxlength="9" required style="max-width: 200px;">
                 <div class="flex-row">
-                    <div style="flex:3;"><label>Rua / Avenida</label><input type="text" name="Rua" placeholder="Sua rua" required></div>
-                    <div style="flex:1;"><label>Número</label><input type="text" name="Numero" placeholder="Nº" required></div>
+                    <div style="flex:3;"><label>Rua / Avenida</label><input type="text" name="Rua" required></div>
+                    <div style="flex:1;"><label>Número</label><input type="text" name="Numero" required></div>
                 </div>
-                
                 <label>Complemento</label>
                 <input type="text" name="Complemento" placeholder="Apto, Casa (Digite 'Não tem' se não houver)" required>
-                
                 <div class="flex-row">
-                    <div style="flex:2;"><label>Cidade</label><input type="text" name="Cidade" placeholder="Sua cidade" required></div>
+                    <div style="flex:2;"><label>Cidade</label><input type="text" name="Cidade" required></div>
                     <div style="flex:1;">
                         <label>Estado</label>
                         <select name="Estado" required>
@@ -189,120 +213,137 @@
                 </div>
             </div>
 
-            <div class="cupom-box">
-                <label>🎟️ Tem algum cupom de desconto?</label>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="inputCupom" placeholder="Digite aqui..." style="text-transform: uppercase;" onkeydown="if(event.key === 'Enter'){ event.preventDefault(); aplicarCupom(); }">
-                    <button type="button" class="btn-cupom" onclick="aplicarCupom()">APLICAR</button>
-                </div>
-                <div id="msgCupom" class="msg-cupom"></div>
-            </div>
-
             <div class="footer-total">
-                <span>VALOR TOTAL DA SUA COMPRA:</span>
-                <span class="total-val" id="totalDisplay">R$ **,**<span style="font-size: 0.5em; font-weight: normal; font-style: italic;"> (frete por nossa conta! 🚚)</span></span>
-                <input type="hidden" name="VALOR_TOTAL_PEDIDO" id="totalInput">
+                <span>VALOR TOTAL (COM FRETE GRÁTIS):</span>
+                <span class="total-val" id="totalDisplay">R$ 35,00</span>
+                <input type="hidden" name="VALOR_TOTAL_PEDIDO" id="totalInput" value="TOTAL FINAL: R$ 35,00">
             </div>
 
-            <button type="submit" class="btn-enviar" id="btnSubmit">🚀 FECHAR PEDIDO E PAGAR!</button>
+            <button type="submit" class="btn-enviar" id="btnSubmit">🚀 FECHAR PEDIDO E FAZER PARTE DO TIME AVELOVER!</button>
         </form>
     </div>
 
+    <!-- TELA DE SUCESSO PIX -->
     <div id="telaPagamento">
-        <h2 style="color: #28a745; margin-bottom: 5px;">🎉 Uhuuul! Pedido Reservado!</h2>
-        <p style="font-size: 15px; font-weight: 600; color: var(--vdo-blue-dark);">Obrigado por se tornar um AVELOVER OFICIAL! 💛<br>Agora basta realizar o pagamento via Pix:</p>
+        <h2 style="color: #e91e63; margin-bottom: 5px;">🐾 Obrigado pelo apoio!</h2>
+        <p style="font-size: 15px; font-weight: 600; color: var(--vdo-blue-dark);">A Avelã mandou um lambeijo de agradecimento! 💛<br>Agora basta realizar o pagamento via Pix:</p>
         
         <div class="pix-box">
             <span style="font-size: 14px; color: #666; font-weight: 700;">VALOR DO PIX:</span>
             <span class="total-val" id="totalPix">R$ 0,00</span>
-            
             <span style="font-size: 12px; color: #666; text-transform: uppercase; font-weight: 700;">Chave Pix (E-mail):</span>
             <span class="chave-pix" id="chaveTexto">vaidormironde@gmail.com</span>
             <button type="button" class="btn-copiar" onclick="copiarPix()">📋 COPIAR CHAVE PIX</button>
         </div>
-
-        <div style="text-align: left; font-size: 14px; color: #555; background: #fffdf0; padding: 20px; border-radius: 15px; border: 1px solid #eee;">
-            <strong>O que acontece agora? 👇</strong><br><br>
-            1️⃣ Faça o Pix no valor exato para a nossa chave (<strong>vaidormironde@gmail.com</strong>).<br>
-            2️⃣ O pagamento será validado automaticamente pelo nome que você preencheu.<br>
-            3️⃣ Fique de olho no seu WhatsApp! Vamos te chamar em breve para confirmar tudo. 🚐💨
-        </div>
+        <p style="font-size: 14px; color: #555;">Faça o Pix no valor exato. Vamos confirmar pelo nome preenchido e te enviar um email 🚐💨</p>
     </div>
 </div>
 
 <script>
     // ==========================================
-    // 💰 PAINEL DE CONTROLE (Preços e Estoque)
+    // ⚙️ CONFIGURAÇÕES DA CAMPANHA AVELÃ
     // ==========================================
-    const precoAdulto = 97.00;
-    const precoInfantil = 77.00;
-    const chavePix = "vaidormironde@gmail.com";
-
-    // 🔴 Para esgotar TODAS as opções de uma cor, mude true para false
-    const estoque = {
-        "Bóra Viajar!_Preto": true,
-        "Bóra Viajar!_Off White": true,
-        "Bóra Viajar!_Verde": true,
-        "Cachorro_Preto": true,
-        "Cachorro_Off White": true,
-        "Cachorro_Verde": true,
-        "Avelã_Off White": true
-    };
-
-    // 🔴 Para esgotar TAMANHOS ESPECÍFICOS, coloque a combinação exata entre aspas
-    // Formato obrigatório: "Estampa_Cor_Tamanho"
-    // Exemplo de uso: ["Bóra Viajar!_Preto_M", "Cachorro_Verde_GG"]
-    const tamanhosEsgotados = [
-        
+    const valorGasto = 36000;      // Meta (Custo do tratamento)
+    const valorArrecadado = 2500; // Quanto já foi doado até agora
+    
+    // Nomes das imagens dos adesivos e mockups na pasta img
+    const imagensAdesivo = [
+        "img/tela_insta2.png", // Imagem 1
+        "img/tela_insta.png", // Imagem 2 (Ex: Mockup colado)
+        "img/ADESIVOS.png"  // Imagem 3 
     ];
 
-    const cuponsCadastrados = { 
-        "VDO10": { tipo: "porcentagem", valor: 10 }, 
-        "FRETEGRATIS": { tipo: "fixo", valor: 30 }, 
-        "BOLIVIA": { tipo: "porcentagem", valor: 15 },
-        "AVELOVER20": { tipo: "porcentagem", valor: 20 }
-    };
+    const precoComboBase = 35.00;
+    let qtdCombo = 1;
+    let valorDoacaoExtra = 0;
+
     // ==========================================
+    // 💰 PAINEL DE CONTROLE (Camisetas e Estoque)
+    // ==========================================
+    const precoAdulto = 95.00;
+    const precoInfantil = 85.00;
+    const chavePix = "vaidormironde@gmail.com";
 
-    let contador = 0; let cupomAtivo = null; let nomeCupomAtivo = ""; let indicesCarrossel = {}; 
+    const estoque = {
+        "Bóra Viajar!_Preto": true, "Bóra Viajar!_Off White": true, "Bóra Viajar!_Verde": true,
+        "Cachorro_Preto": true, "Cachorro_Off White": true, "Cachorro_Verde": true, "Avelã_Off White": true
+    };
+    const tamanhosEsgotados = [];
 
-    const imagens = {
-        "Bóra Viajar!_Preto": ["img/camiseta_costas_bora_preto_amanda.jpg", "img/camiseta_frente_preto_amanda.jpg", "img/camiseta_costas_bora_preto_thiago.jpg", "img/camiseta_frente_preto_thiago.jpg"],
-        "Bóra Viajar!_Off White": ["img/camiseta_costas_bora_branco_amanda.jpg", "img/camiseta_frente_branco_amanda.jpg", "img/camiseta_costas_bora_branco_thiago.jpg", "img/camiseta_frente_branco_thiago.jpg"],
-        "Bóra Viajar!_Verde": ["img/camiseta_costas_bora_verde_amanda.jpg", "img/camiseta_frente_verde_amanda.jpg", "img/camiseta_costas_bora_verde_thiago.jpg", "img/camiseta_frente_verde_thiago.jpg"],
-        "Cachorro_Preto": ["img/camiseta_costas_eulevo_preto_amanda.jpg", "img/camiseta_frente_preto_amanda.jpg", "img/camiseta_costas_eulevo_preto_thiago.jpg", "img/camiseta_frente_preto_thiago.jpg"],
-        "Cachorro_Off White": ["img/camiseta_costas_eulevo_branco_amanda.jpg", "img/camiseta_frente_branco_amanda.jpg", "img/camiseta_costas_eulevo_branco_thiago.jpg", "img/camiseta_frente_branco_thiago.jpg"],
-        "Cachorro_Verde": ["img/camiseta_costas_eulevo_verde_amanda.jpg", "img/camiseta_frente_verde_amanda.jpg", "img/camiseta_costas_eulevo_verde_thiago.jpg", "img/camiseta_frente_verde_thiago.jpg"],
+    const imagensCamiseta = {
+        "Bóra Viajar!_Preto": ["img/camiseta_costas_bora_preto_amanda.jpg", "img/camiseta_frente_preto_amanda.jpg"],
+        "Bóra Viajar!_Off White": ["img/camiseta_costas_bora_branco_amanda.jpg", "img/camiseta_frente_branco_amanda.jpg"],
+        "Bóra Viajar!_Verde": ["img/camiseta_costas_bora_verde_amanda.jpg", "img/camiseta_frente_verde_amanda.jpg"],
+        "Cachorro_Preto": ["img/camiseta_costas_eulevo_preto_amanda.jpg", "img/camiseta_frente_preto_amanda.jpg"],
+        "Cachorro_Off White": ["img/camiseta_costas_eulevo_branco_amanda.jpg", "img/camiseta_frente_branco_amanda.jpg"],
+        "Cachorro_Verde": ["img/camiseta_costas_eulevo_verde_amanda.jpg", "img/camiseta_frente_verde_amanda.jpg"],
         "Avelã_Off White": ["img/camiseta_avelamochileira_branco.png"]
     };
 
-    function estampaTemEstoque(nomeEstampa) {
-        for (let chave in estoque) {
-            if (chave.startsWith(nomeEstampa + "_") && estoque[chave] === true) {
-                return true;
-            }
-        }
-        return false;
+    let contador = 0; let indicesCarrossel = {};
+
+    // ==========================================
+    // 🚀 LÓGICA DA CAMPANHA (Barra e Carrossel)
+    // ==========================================
+    function inicializarCampanha() {
+        // Barra de progresso (somente porcentagem visível)
+        const porcentagem = Math.min(((valorArrecadado / valorGasto) * 100).toFixed(1), 100);
+        document.getElementById('txtPorcentagem').innerText = porcentagem;
+        
+        setTimeout(() => {
+            document.getElementById('barraProgresso').style.width = porcentagem + '%';
+        }, 500);
+
+        // Carrossel de Adesivos
+        const container = document.getElementById('slidesContainer');
+        imagensAdesivo.forEach((imgSrc, index) => {
+            const img = document.createElement('img');
+            img.src = imgSrc; img.className = 'slide-adesivo';
+            if(index === 0) img.classList.add('active');
+            container.appendChild(img);
+        });
+        
+        // Troca automática a cada 5 segundos
+        setInterval(() => mudarSlideAdesivo(1), 5000);
     }
 
+    let slideAtualAdesivo = 0;
+    function mudarSlideAdesivo(direcao) {
+        const slides = document.querySelectorAll('.slide-adesivo');
+        if(slides.length === 0) return;
+        slides[slideAtualAdesivo].classList.remove('active');
+        slideAtualAdesivo += direcao;
+        if(slideAtualAdesivo >= slides.length) slideAtualAdesivo = 0;
+        if(slideAtualAdesivo < 0) slideAtualAdesivo = slides.length - 1;
+        slides[slideAtualAdesivo].classList.add('active');
+    }
+
+    function mudarQtdCombo(delta) {
+        qtdCombo += delta;
+        if(qtdCombo < 0) qtdCombo = 0;
+        document.getElementById('qtdComboDisplay').innerText = qtdCombo;
+        calcularTotal();
+    }
+
+    function adicionarDoacao(valor) {
+        if(valor === 0) { valorDoacaoExtra = 0; } 
+        else { valorDoacaoExtra += valor; }
+        document.getElementById('valorExtraDisplay').innerText = valorDoacaoExtra.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+        calcularTotal();
+    }
+
+    // ==========================================
+    // 👕 LÓGICA DAS CAMISETAS E FORMULÁRIO
+    // ==========================================
     const mascaraCampos = () => {
         document.getElementById('inputCEP').addEventListener('input', (e) => {
-            let v = e.target.value.replace(/\D/g, "");
-            v = v.replace(/^(\d{5})(\d)/, "$1-$2");
-            e.target.value = v;
+            let v = e.target.value.replace(/\D/g, ""); v = v.replace(/^(\d{5})(\d)/, "$1-$2"); e.target.value = v;
         });
         document.getElementById('inputWhatsApp').addEventListener('input', (e) => {
-            let v = e.target.value.replace(/\D/g, "");
-            v = v.replace(/^(\d{2})(\d)/g, "($1) $2");
-            v = v.replace(/(\d)(\d{4})$/, "$1-$2");
-            e.target.value = v;
+            let v = e.target.value.replace(/\D/g, ""); v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); v = v.replace(/(\d)(\d{4})$/, "$1-$2"); e.target.value = v;
         });
         document.getElementById('inputCPF').addEventListener('input', (e) => {
-            let v = e.target.value.replace(/\D/g, "");
-            v = v.replace(/(\d{3})(\d)/, "$1.$2");
-            v = v.replace(/(\d{3})(\d)/, "$1.$2");
-            v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-            e.target.value = v;
+            let v = e.target.value.replace(/\D/g, ""); v = v.replace(/(\d{3})(\d)/, "$1.$2"); v = v.replace(/(\d{3})(\d)/, "$1.$2"); v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); e.target.value = v;
         });
     };
 
@@ -313,35 +354,21 @@
         div.className = 'item-pedido'; div.id = 'item-' + contador;
         
         div.innerHTML = `
-            ${contador > 1 ? `<button type="button" class="btn-remover" onclick="removerItem(${contador})">×</button>` : ''}
+            <button type="button" class="btn-remover" onclick="removerItem(${contador})">×</button>
             <div class="campos-pedido">
                 <label>🎨 Estampa</label>
                 <select class="p-estampa" onchange="atualizarInterface(${contador})" required>
                     <option value="" disabled selected>Escolha o modelo</option>
-                    <option value="Bóra Viajar!" ${!estampaTemEstoque("Bóra Viajar!") ? 'disabled' : ''}>"Bóra Viajar!" ${!estampaTemEstoque("Bóra Viajar!") ? '(ESGOTADO ⏳)' : ''}</option>
-                    <option value="Cachorro" ${!estampaTemEstoque("Cachorro") ? 'disabled' : ''}>"Levo a sério passeio com cachorro" ${!estampaTemEstoque("Cachorro") ? '(ESGOTADO ⏳)' : ''}</option>
-                    <option value="Avelã" ${!estampaTemEstoque("Avelã") ? 'disabled' : ''}>Avelã Mochileira ${!estampaTemEstoque("Avelã") ? '(ESGOTADO ⏳)' : ''}</option>
+                    <option value="Bóra Viajar!">"Bóra Viajar!"</option>
+                    <option value="Cachorro">"Levo a sério passeio com cachorro"</option>
+                    <option value="Avelã">Avelã Mochileira</option>
                 </select>
                 <div class="flex-row">
-                    <div style="flex:1;">
-                        <label>🎨 Cor</label>
-                        <select class="p-cor" onchange="atualizarInterface(${contador})" required>
-                            <option value="" disabled selected>Cor</option>
-                            <option value="Preto">Preto</option><option value="Off White">Off White</option><option value="Verde">Verde</option>
-                        </select>
-                    </div>
+                    <div style="flex:1;"><label>🎨 Cor</label><select class="p-cor" onchange="atualizarInterface(${contador})" required><option value="" disabled selected>Cor</option><option value="Preto">Preto</option><option value="Off White">Off White</option><option value="Verde">Verde</option></select></div>
                     <div style="flex:1;">
                         <label>📏 Tamanho</label>
-                        <select class="p-tamanho" onchange="tratarTamanho(${contador}); calcularTotal()" required>
-                            <option value="" disabled selected>Tam.</option>
-                            <option value="P">P</option><option value="M">M</option><option value="G">G</option><option value="GG">GG</option><option value="Infantil">Infantil</option>
-                        </select>
-                        <div class="tamanho-infantil-container" id="infantil-box-${contador}" style="display:none;">
-                            <select class="p-tamanho-infantil" onchange="calcularTotal()">
-                                <option value="" disabled selected>Idade?</option>
-                                <option value="4">4</option><option value="6">6</option><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="14">14</option>
-                            </select>
-                        </div>
+                        <select class="p-tamanho" onchange="tratarTamanho(${contador}); calcularTotal()" required><option value="" disabled selected>Tam.</option><option value="P">P</option><option value="M">M</option><option value="G">G</option><option value="GG">GG</option><option value="Infantil">Infantil</option></select>
+                        <div class="tamanho-infantil-container" id="infantil-box-${contador}" style="display:none;"><select class="p-tamanho-infantil" onchange="calcularTotal()"><option value="" disabled selected>Idade?</option><option value="4">4</option><option value="6">6</option><option value="8">8</option><option value="10">10</option><option value="12">12</option><option value="14">14</option></select></div>
                     </div>
                 </div>
                 <label>📦 Qtd.</label>
@@ -368,12 +395,9 @@
     function copiarNomeComprador() { document.getElementById('nomePix').value = document.getElementById('nomeCliente').value; }
     
     function tratarTamanho(id) {
-        const item = document.getElementById('item-' + id); 
-        const selectTam = item.querySelector('.p-tamanho');
-        const tam = selectTam.value;
-        const box = document.getElementById('infantil-box-' + id); 
-        box.style.display = tam === 'Infantil' ? 'block' : 'none';
-        item.querySelector('.p-tamanho-infantil').required = (tam === 'Infantil');
+        const item = document.getElementById('item-' + id); const selectTam = item.querySelector('.p-tamanho').value;
+        const box = document.getElementById('infantil-box-' + id); box.style.display = selectTam === 'Infantil' ? 'block' : 'none';
+        item.querySelector('.p-tamanho-infantil').required = (selectTam === 'Infantil');
     }
 
     function virarCartao(id) {
@@ -384,143 +408,104 @@
     function mudarFoto(id, direcao) {
         const item = document.getElementById('item-' + id); const estampa = item.querySelector('.p-estampa').value;
         const selectCor = item.querySelector('.p-cor').value; const chave = estampa + "_" + selectCor;
-        const listaFotos = imagens[chave]; if(!listaFotos || listaFotos.length <= 1) return; 
+        const listaFotos = imagensCamiseta[chave]; if(!listaFotos || listaFotos.length <= 1) return; 
         let idx = indicesCarrossel[id]; idx += direcao; 
         if (idx >= listaFotos.length) idx = 0; if (idx < 0) idx = listaFotos.length - 1; 
         indicesCarrossel[id] = idx; document.getElementById('img-' + id).src = listaFotos[idx];
     }
     
     function atualizarInterface(id) {
-        const item = document.getElementById('item-' + id); 
-        const estampa = item.querySelector('.p-estampa').value;
-        const selectCor = item.querySelector('.p-cor'); 
-        const selectTamanho = item.querySelector('.p-tamanho'); 
-        const img = document.getElementById('img-' + id);
-        const ph = document.getElementById('ph-' + id); 
-        const btnPrev = document.getElementById('btn-prev-' + id);
-        const btnNext = document.getElementById('btn-next-' + id);
+        const item = document.getElementById('item-' + id); const estampa = item.querySelector('.p-estampa').value;
+        const selectCor = item.querySelector('.p-cor'); const selectTamanho = item.querySelector('.p-tamanho'); 
+        const img = document.getElementById('img-' + id); const ph = document.getElementById('ph-' + id); 
+        const btnPrev = document.getElementById('btn-prev-' + id); const btnNext = document.getElementById('btn-next-' + id);
         
-        // --- 1. Atualiza disponibilidade de Cor ---
         if (estampa) {
             Array.from(selectCor.options).forEach(opt => {
-                if (opt.value !== "") {
-                    opt.text = opt.value; 
-                    opt.disabled = false; 
-                    
-                    if (estampa === "Avelã" && opt.value !== "Off White") {
-                        opt.disabled = true;
-                    } else {
-                        const chaveCombinacao = estampa + "_" + opt.value;
-                        if (estoque[chaveCombinacao] === false) {
-                            opt.disabled = true;
-                            opt.text = opt.value + " (ESGOTADO ⏳)";
-                        }
+                if (opt.value !== "") { opt.text = opt.value; opt.disabled = false; 
+                    if (estampa === "Avelã" && opt.value !== "Off White") { opt.disabled = true; } else {
+                        if (estoque[estampa + "_" + opt.value] === false) { opt.disabled = true; opt.text = opt.value + " (ESGOTADO ⏳)"; }
                     }
                 }
             });
-            
-            if (selectCor.options[selectCor.selectedIndex] && selectCor.options[selectCor.selectedIndex].disabled) {
-                selectCor.value = "";
-            }
+            if (selectCor.options[selectCor.selectedIndex] && selectCor.options[selectCor.selectedIndex].disabled) { selectCor.value = ""; }
         }
-
         const corSelecionada = selectCor.value;
-
-        // --- 2. Atualiza disponibilidade de Tamanho (A Nova Trava!) ---
         if (estampa && corSelecionada) {
             Array.from(selectTamanho.options).forEach(opt => {
-                if (opt.value !== "") {
-                    opt.text = opt.value; // Volta pro padrão "M", "G", etc.
-                    opt.disabled = false;
-                    
-                    const chaveTamanho = estampa + "_" + corSelecionada + "_" + opt.value;
-                    
-                    if (tamanhosEsgotados.includes(chaveTamanho)) {
-                        opt.disabled = true;
-                        opt.text = opt.value + " (ESGOTADO ⏳)";
-                    }
+                if (opt.value !== "") { opt.text = opt.value; opt.disabled = false; 
+                    if (tamanhosEsgotados.includes(estampa + "_" + corSelecionada + "_" + opt.value)) { opt.disabled = true; opt.text = opt.value + " (ESGOTADO ⏳)"; }
                 }
             });
-
-            // Se o tamanho que a pessoa estava selecionado ficar indisponível de repente, limpa o campo
-            if (selectTamanho.options[selectTamanho.selectedIndex] && selectTamanho.options[selectTamanho.selectedIndex].disabled) {
-                selectTamanho.value = "";
-                tratarTamanho(id); // Já esconde o box infantil também, se necessário
-            }
-        } else {
-            // Se mudou a estampa e zerou a cor, zera os tamanhos pro estado normal
-            Array.from(selectTamanho.options).forEach(opt => {
-                if (opt.value !== "") { opt.text = opt.value; opt.disabled = false; }
-            });
+            if (selectTamanho.options[selectTamanho.selectedIndex] && selectTamanho.options[selectTamanho.selectedIndex].disabled) { selectTamanho.value = ""; tratarTamanho(id); }
         }
 
-        // --- 3. Atualiza Imagens ---
-        const chaveImg = estampa + "_" + corSelecionada; 
-        const listaFotos = imagens[chaveImg];
-        
+        const listaFotos = imagensCamiseta[estampa + "_" + corSelecionada];
         if (listaFotos && listaFotos.length > 0) { 
             indicesCarrossel[id] = 0; img.src = listaFotos[0]; img.style.display = 'block'; ph.style.display = 'none'; 
-            if (listaFotos.length > 1) { btnPrev.style.display = 'flex'; btnNext.style.display = 'flex'; } 
-            else { btnPrev.style.display = 'none'; btnNext.style.display = 'none'; }
+            if (listaFotos.length > 1) { btnPrev.style.display = 'flex'; btnNext.style.display = 'flex'; } else { btnPrev.style.display = 'none'; btnNext.style.display = 'none'; }
         } else { img.style.display = 'none'; ph.style.display = 'block'; btnPrev.style.display = 'none'; btnNext.style.display = 'none'; }
-        
         calcularTotal();
     }
     
     function removerItem(id) { document.getElementById('item-' + id).remove(); calcularTotal(); }
     
-    function aplicarCupom() {
-        const input = document.getElementById('inputCupom').value.trim().toUpperCase(); const msg = document.getElementById('msgCupom');
-        if (input === "") return;
-        if (cuponsCadastrados[input]) {
-            cupomAtivo = cuponsCadastrados[input]; nomeCupomAtivo = input;
-            let txtDesc = cupomAtivo.tipo === "porcentagem" ? `${cupomAtivo.valor}% de desconto` : `R$ ${cupomAtivo.valor},00 de desconto`;
-            msg.innerText = `✅ Cupom ${input} ativado (${txtDesc})!`; msg.className = "msg-cupom msg-sucesso";
-        } else { cupomAtivo = null; nomeCupomAtivo = ""; msg.innerText = "❌ Ops! Esse cupom parece inválido ou já expirou."; msg.className = "msg-cupom msg-erro"; }
-        calcularTotal();
-    }
-    
     function calcularTotal() {
-        let subTotal = 0; let completo = false;
+        // Atualiza o subtotal da doação (Combos + Extras) no card de cima
+        let subtotalAvela = (qtdCombo * precoComboBase) + valorDoacaoExtra;
+        document.getElementById('subtotalDoacaoDisplay').innerText = "R$ " + subtotalAvela.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+
+        // Calcula o total geral (Doação + Camisetas)
+        let totalFinal = subtotalAvela;
+        
         document.querySelectorAll('.item-pedido').forEach(it => {
             const e = it.querySelector('.p-estampa').value; const tam = it.querySelector('.p-tamanho').value;
             const c = it.querySelector('.p-cor').value; const q = parseInt(it.querySelector('.p-qtd').value) || 0;
             const tInf = it.querySelector('.p-tamanho-infantil').value;
-            if (e && tam && c && q > 0 && (tam !== "Infantil" || tInf)) { subTotal += (tam === "Infantil") ? (precoInfantil * q) : (precoAdulto * q); completo = true; }
-        });
-        const textoFrete = `<span style="font-size: 0.5em; font-weight: normal; font-style: italic;"> (frete por nossa conta! 🚚)</span>`;
-        if (completo) {
-            let totalFinal = subTotal; let descontoStr = "";
-            if (cupomAtivo) {
-                let valorDesconto = 0; if (cupomAtivo.tipo === "porcentagem") { valorDesconto = subTotal * (cupomAtivo.valor / 100); } 
-                else if (cupomAtivo.tipo === "fixo") { valorDesconto = cupomAtivo.valor; }
-                if (valorDesconto > subTotal) valorDesconto = subTotal;
-                totalFinal = subTotal - valorDesconto; descontoStr = `<span class="preco-cortado">R$ ${subTotal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>`;
+            if (e && tam && c && q > 0 && (tam !== "Infantil" || tInf)) { 
+                totalFinal += (tam === "Infantil") ? (precoInfantil * q) : (precoAdulto * q); 
             }
+        });
+
+        if (totalFinal === 0) {
+            document.getElementById('totalDisplay').innerHTML = "R$ 0,00";
+            document.getElementById('btnSubmit').disabled = true;
+            document.getElementById('btnSubmit').style.opacity = 0.5;
+        } else {
             const valorFormatado = "R$ " + totalFinal.toLocaleString('pt-BR', {minimumFractionDigits: 2});
-            document.getElementById('totalDisplay').innerHTML = descontoStr + valorFormatado + textoFrete;
-            let relatorioFinal = `TOTAL FINAL: ${valorFormatado}`; if (cupomAtivo) relatorioFinal += ` (Desconto aplicado. Cupom: ${nomeCupomAtivo})`;
-            document.getElementById('totalInput').value = relatorioFinal; document.getElementById('totalPix').innerText = valorFormatado;
-        } else { document.getElementById('totalDisplay').innerHTML = "R$ **,**" + textoFrete; document.getElementById('totalInput').value = "Aguardando preenchimento"; document.getElementById('totalPix').innerText = "R$ 0,00"; }
+            document.getElementById('totalDisplay').innerHTML = valorFormatado;
+            document.getElementById('totalInput').value = "TOTAL FINAL: " + valorFormatado; 
+            document.getElementById('totalPix').innerText = valorFormatado;
+            document.getElementById('btnSubmit').disabled = false;
+            document.getElementById('btnSubmit').style.opacity = 1;
+        }
     }
     
-    function copiarPix() { navigator.clipboard.writeText(chavePix); alert("Chave Pix copiada com sucesso! Só colar no app do seu banco. 🚐💨"); }
+    function copiarPix() { navigator.clipboard.writeText(chavePix); alert("Chave Pix copiada com sucesso!"); }
 
     document.getElementById('formVDO').onsubmit = function(e) {
-        e.preventDefault(); const btn = document.getElementById('btnSubmit'); btn.innerText = "⏳ SALVANDO RESERVA..."; btn.disabled = true;
-        let resumo = ""; document.querySelectorAll('.item-pedido').forEach((it, i) => {
+        e.preventDefault(); 
+        
+        let resumo = "";
+        if (qtdCombo > 0) resumo += `COMBO AVELÃ: ${qtdCombo} unidade(s) // `;
+        if (valorDoacaoExtra > 0) resumo += `DOAÇÃO EXTRA: R$ ${valorDoacaoExtra.toFixed(2)} // `;
+
+        document.querySelectorAll('.item-pedido').forEach((it, i) => {
             const e = it.querySelector('.p-estampa').value; let t = it.querySelector('.p-tamanho').value;
             if (t === "Infantil") t = `Infantil (${it.querySelector('.p-tamanho-infantil').value} anos)`;
             const c = it.querySelector('.p-cor').value; const q = it.querySelector('.p-qtd').value;
-            resumo += `ITEM ${i+1}: ${e} (${c} | Tam: ${t} | Qtd: ${q}) // `;
+            resumo += `CAMISETA: ${e} (${c} | Tam: ${t} | Qtd: ${q}) // `;
         });
-        document.getElementById('resumoInput').value = resumo; const formData = new FormData(this);
+        document.getElementById('resumoInput').value = resumo; 
+        
+        const btn = document.getElementById('btnSubmit'); btn.innerText = "⏳ GERANDO PIX..."; btn.disabled = true;
+        const formData = new FormData(this);
         fetch("https://formsubmit.co/ajax/3b0c4dc03954c36f57db200e51a13213", { method: "POST", body: formData })
         .then(response => { document.getElementById('conteudoForm').style.display = 'none'; document.getElementById('telaPagamento').style.display = 'block'; window.scrollTo(0,0); })
-        .catch(error => { alert("Opa, deu um errinho de conexão. Tente clicar novamente!"); btn.innerText = "🚀 FECHAR PEDIDO E PAGAR!"; btn.disabled = false; });
+        .catch(error => { alert("Erro de conexão. Tente novamente."); btn.innerText = "🚀 FECHAR PEDIDO E AJUDAR!"; btn.disabled = false; });
     };
 
-    window.onload = () => { adicionarCamiseta(); mascaraCampos(); };
+    window.onload = () => { mascaraCampos(); inicializarCampanha(); calcularTotal(); };
 </script>
 </body>
 </html>
