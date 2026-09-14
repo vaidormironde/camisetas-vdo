@@ -55,7 +55,7 @@
         .doacao-extra-box { background: white; padding: 15px; border-radius: 15px; border: 1px solid rgba(26,35,126,0.1); margin-top: 15px; }
         .doacao-extra-box p { font-size: 13px; font-weight: 700; margin: 0 0 10px 0; color: var(--vdo-blue-dark); }
         
-        /* NOVO DESIGN: BOTÕES E VALOR LADO A LADO */
+        /* DESIGN: BOTÕES E VALOR LADO A LADO */
         .flex-doacao { display: flex; align-items: center; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
         .botoes-grupo { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 280px; }
         
@@ -159,6 +159,9 @@
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="RESUMO_DO_PEDIDO" id="resumoInput">
+            
+            <!-- EMAIL AUTOMÁTICO DO FORMSUBMIT COM NOVO AVISO DE 2 DIAS -->
+            <input type="hidden" name="_autoresponse" value="Olá! Recebemos o seu pedido do Combo Avelã com sucesso! 🐾💛 Este é um e-mail automático apenas para confirmar que seus dados chegaram para nós. Muito obrigado de coração por nos apoiar no tratamento da nossa menina! Para validar a sua doação e garantir seus adesivos, lembre-se de realizar o Pix no valor exato do seu pedido para a chave: vaidormironde@gmail.com. Se você já fez o Pix logo após fechar o pedido, não se preocupe, é só aguardar! Nós vamos checar e enviaremos um novo e-mail confirmando o pagamento em no máximo 2 dias. Bem-vindo(a) ao time Avelover! 🚐💨">
 
             <!-- CARD DO COMBO SOLIDÁRIO -->
             <div class="combo-card">
@@ -214,7 +217,7 @@
                 <input type="email" name="email" id="emailCliente" required>
 
                 <div class="flex-row">
-                    <div style="flex:1;"><label>📱 WhatsApp</label><input type="tel" name="WhatsApp" id="inputWhatsApp" maxlength="15" required></div>
+                    <div style="flex:1;"><label>📱 WhatsApp</label><input type="tel" name="WhatsApp" id="inputWhatsApp" placeholder="Ex: +55 11 99999-9999" required></div>
                     <div style="flex:1;"><label>📄 CPF (Para envio)</label><input type="text" name="CPF" id="inputCPF" maxlength="14" required></div>
                 </div>
 
@@ -253,7 +256,6 @@
                 <input type="hidden" name="VALOR_TOTAL_PEDIDO" id="totalInput" value="TOTAL FINAL: R$ 35,00">
             </div>
 
-            <!-- NOVO AVISO DE ENVIO ADICIONADO AQUI -->
             <div class="aviso-envio">
                 ⚠️ Importante: Os adesivos serão enviados em lotes, sendo que o primeiro será postado dia 05/10/2026.
             </div>
@@ -325,7 +327,6 @@
     // 🚀 LÓGICA DA CAMPANHA (Barra e Carrossel)
     // ==========================================
     function inicializarCampanha() {
-        // Barra de progresso (somente porcentagem visível)
         const porcentagem = Math.min(((valorArrecadado / valorGasto) * 100).toFixed(1), 100);
         document.getElementById('txtPorcentagem').innerText = porcentagem;
         
@@ -333,7 +334,6 @@
             document.getElementById('barraProgresso').style.width = porcentagem + '%';
         }, 500);
 
-        // Carrossel de Adesivos
         const container = document.getElementById('slidesContainer');
         imagensAdesivo.forEach((imgSrc, index) => {
             const img = document.createElement('img');
@@ -342,7 +342,6 @@
             container.appendChild(img);
         });
         
-        // Troca automática a cada 5 segundos
         setInterval(() => mudarSlideAdesivo(1), 5000);
     }
 
@@ -373,21 +372,17 @@
         animarTotal();
     }
 
-    // Função para fazer o número pular quando houver alteração de valor
     function animarTotal() {
         const displaySubtotal = document.getElementById('subtotalDoacaoDisplay');
         const displayTotalFinal = document.getElementById('totalDisplay');
         const displayBadge = document.getElementById('valorExtraDisplay');
         
-        // Reseta a animação tirando a classe
         displaySubtotal.classList.remove('animar-pulso');
         displayTotalFinal.classList.remove('animar-pulso');
         displayBadge.classList.remove('animar-pulso');
         
-        // Força o navegador a reconhecer que a classe sumiu (reflow)
         void displaySubtotal.offsetWidth; 
         
-        // Adiciona a classe de volta para rodar a animação
         displaySubtotal.classList.add('animar-pulso');
         displayTotalFinal.classList.add('animar-pulso');
         displayBadge.classList.add('animar-pulso');
@@ -400,9 +395,12 @@
         document.getElementById('inputCEP').addEventListener('input', (e) => {
             let v = e.target.value.replace(/\D/g, ""); v = v.replace(/^(\d{5})(\d)/, "$1-$2"); e.target.value = v;
         });
+        
+        // MÁSCARA DE WHATSAPP FLEXÍVEL
         document.getElementById('inputWhatsApp').addEventListener('input', (e) => {
-            let v = e.target.value.replace(/\D/g, ""); v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); v = v.replace(/(\d)(\d{4})$/, "$1-$2"); e.target.value = v;
+            e.target.value = e.target.value.replace(/[^\d+()\s-]/g, "");
         });
+
         document.getElementById('inputCPF').addEventListener('input', (e) => {
             let v = e.target.value.replace(/\D/g, ""); v = v.replace(/(\d{3})(\d)/, "$1.$2"); v = v.replace(/(\d{3})(\d)/, "$1.$2"); v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); e.target.value = v;
         });
@@ -512,11 +510,9 @@
     function removerItem(id) { document.getElementById('item-' + id).remove(); calcularTotal(); }
     
     function calcularTotal() {
-        // Atualiza o subtotal da doação (Combos + Extras) no card de cima
         let subtotalAvela = (qtdCombo * precoComboBase) + valorDoacaoExtra;
         document.getElementById('subtotalDoacaoDisplay').innerText = "R$ " + subtotalAvela.toLocaleString('pt-BR', {minimumFractionDigits: 2});
 
-        // Calcula o total geral (Doação + Camisetas)
         let totalFinal = subtotalAvela;
         
         document.querySelectorAll('.item-pedido').forEach(it => {
