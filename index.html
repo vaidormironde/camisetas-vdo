@@ -54,11 +54,29 @@
 
         .doacao-extra-box { background: white; padding: 15px; border-radius: 15px; border: 1px solid rgba(26,35,126,0.1); margin-top: 15px; }
         .doacao-extra-box p { font-size: 13px; font-weight: 700; margin: 0 0 10px 0; color: var(--vdo-blue-dark); }
-        .btn-doar { font-family: 'Poppins', sans-serif; background: #eee; border: none; padding: 8px 15px; border-radius: 20px; font-weight: 700; color: var(--vdo-blue-dark); cursor: pointer; transition: 0.2s; font-size: 13px; margin: 3px; }
-        .btn-doar:hover { background: var(--vdo-orange); color: white; }
-        .doacao-aviso { font-size: 12px; color: #888; margin-top: 10px; font-style: italic; }
         
-        .doacao-resumo { margin-top: 15px; padding-top: 15px; border-top: 1px dashed #ccc; font-size: 16px; font-weight: 900; color: var(--vdo-magenta); }
+        /* NOVO DESIGN: BOTÕES E VALOR LADO A LADO */
+        .flex-doacao { display: flex; align-items: center; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
+        .botoes-grupo { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 280px; }
+        
+        .btn-doar { font-family: 'Poppins', sans-serif; background: #eee; border: none; padding: 10px 15px; border-radius: 20px; font-weight: 700; color: var(--vdo-blue-dark); cursor: pointer; transition: 0.2s; font-size: 13px; box-shadow: 0 3px 5px rgba(0,0,0,0.05); }
+        .btn-doar:hover { background: var(--vdo-orange); color: white; transform: translateY(-2px); box-shadow: 0 5px 10px rgba(255, 152, 0, 0.2); }
+        .btn-doar:active { transform: translateY(0); }
+        .btn-zerar { background: #ddd; color: #555; }
+        .btn-zerar:hover { background: #ccc; color: #333; }
+        
+        .valor-extra-badge { background: rgba(255, 152, 0, 0.1); border: 2px dashed var(--vdo-orange); color: var(--vdo-blue-dark); padding: 10px 15px; border-radius: 15px; text-align: center; font-weight: 700; font-size: 11px; display: flex; flex-direction: column; justify-content: center; min-width: 100px; }
+        .valor-extra-badge .valor-numero { font-size: 18px; font-weight: 900; color: var(--vdo-magenta); margin-top: 2px; display: inline-block; }
+
+        .doacao-resumo { margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ccc; font-size: 16px; font-weight: 900; color: var(--vdo-magenta); }
+
+        /* ANIMAÇÃO DE FEEDBACK VISUAL (PULSO) */
+        @keyframes pulso {
+            0% { transform: scale(1); color: var(--vdo-magenta); }
+            50% { transform: scale(1.15); color: var(--vdo-orange); }
+            100% { transform: scale(1); color: var(--vdo-magenta); }
+        }
+        .animar-pulso { animation: pulso 0.3s ease-in-out; }
 
         /* DIVISOR CAMISETAS */
         .divisor-camisetas { border-top: 2px dashed rgba(26, 35, 126, 0.2); margin: 40px 0 20px 0; padding-top: 20px; text-align: center; }
@@ -154,15 +172,25 @@
                 </div>
 
                 <div class="doacao-extra-box">
-                    <p>Quer ajudar um pouco mais? Adicione uma doação extra (opcional):</p>
-                    <button type="button" class="btn-doar" onclick="adicionarDoacao(10)">+ R$ 10</button>
-                    <button type="button" class="btn-doar" onclick="adicionarDoacao(50)">+ R$ 50</button>
-                    <button type="button" class="btn-doar" onclick="adicionarDoacao(100)">+ R$ 100</button>
-                    <button type="button" class="btn-doar" onclick="adicionarDoacao(0)" style="background: #ccc;">Zerar Extra</button>
-                    <div class="doacao-aviso">Doação extra atual: R$ <span id="valorExtraDisplay">0,00</span></div>
+                    <p>💡 <strong>Toque nos botões abaixo quantas vezes quiser</strong> para somar um valor à sua doação:</p>
+                    
+                    <div class="flex-doacao">
+                        <div class="botoes-grupo">
+                            <button type="button" class="btn-doar" onclick="adicionarDoacao(10)">+ R$ 10</button>
+                            <button type="button" class="btn-doar" onclick="adicionarDoacao(50)">+ R$ 50</button>
+                            <button type="button" class="btn-doar" onclick="adicionarDoacao(100)">+ R$ 100</button>
+                            <button type="button" class="btn-doar btn-zerar" onclick="adicionarDoacao(0)">Zerar Extra</button>
+                        </div>
+                        
+                        <div class="valor-extra-badge">
+                            EXTRA ACUMULADO
+                            <span class="valor-numero" id="valorExtraDisplay">R$ 0,00</span>
+                        </div>
+                    </div>
                     
                     <div class="doacao-resumo">
-                        Sua contribuição para a Avelã: <span id="subtotalDoacaoDisplay">R$ 35,00</span>
+                        Sua contribuição para a Avelã:<br>
+                        <span id="subtotalDoacaoDisplay" style="display: inline-block;">R$ 35,00</span>
                     </div>
                 </div>
             </div>
@@ -221,7 +249,7 @@
 
             <div class="footer-total">
                 <span>VALOR TOTAL (COM FRETE GRÁTIS):</span>
-                <span class="total-val" id="totalDisplay">R$ 35,00</span>
+                <span class="total-val" id="totalDisplay" style="display: inline-block;">R$ 35,00</span>
                 <input type="hidden" name="VALOR_TOTAL_PEDIDO" id="totalInput" value="TOTAL FINAL: R$ 35,00">
             </div>
 
@@ -334,13 +362,35 @@
         if(qtdCombo < 0) qtdCombo = 0;
         document.getElementById('qtdComboDisplay').innerText = qtdCombo;
         calcularTotal();
+        animarTotal();
     }
 
     function adicionarDoacao(valor) {
         if(valor === 0) { valorDoacaoExtra = 0; } 
         else { valorDoacaoExtra += valor; }
-        document.getElementById('valorExtraDisplay').innerText = valorDoacaoExtra.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+        document.getElementById('valorExtraDisplay').innerText = "R$ " + valorDoacaoExtra.toLocaleString('pt-BR', {minimumFractionDigits: 2});
         calcularTotal();
+        animarTotal();
+    }
+
+    // Função para fazer o número pular quando houver alteração de valor
+    function animarTotal() {
+        const displaySubtotal = document.getElementById('subtotalDoacaoDisplay');
+        const displayTotalFinal = document.getElementById('totalDisplay');
+        const displayBadge = document.getElementById('valorExtraDisplay');
+        
+        // Reseta a animação tirando a classe
+        displaySubtotal.classList.remove('animar-pulso');
+        displayTotalFinal.classList.remove('animar-pulso');
+        displayBadge.classList.remove('animar-pulso');
+        
+        // Força o navegador a reconhecer que a classe sumiu (reflow)
+        void displaySubtotal.offsetWidth; 
+        
+        // Adiciona a classe de volta para rodar a animação
+        displaySubtotal.classList.add('animar-pulso');
+        displayTotalFinal.classList.add('animar-pulso');
+        displayBadge.classList.add('animar-pulso');
     }
 
     // ==========================================
