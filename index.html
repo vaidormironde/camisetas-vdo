@@ -555,11 +555,32 @@
         });
         document.getElementById('resumoInput').value = resumo; 
         
-        const btn = document.getElementById('btnSubmit'); btn.innerText = "⏳ GERANDO PIX..."; btn.disabled = true;
+        const btn = document.getElementById('btnSubmit'); 
+        btn.innerText = "⏳ GERANDO PIX..."; 
+        btn.disabled = true;
+        
         const formData = new FormData(this);
-        fetch("https://formsubmit.co/ajax/3b0c4dc03954c36f57db200e51a13213", { method: "POST", body: formData })
-        .then(response => { document.getElementById('conteudoForm').style.display = 'none'; document.getElementById('telaPagamento').style.display = 'block'; window.scrollTo(0,0); })
-        .catch(error => { alert("Erro de conexão. Tente novamente."); btn.innerText = "🚀 FECHAR PEDIDO E AJUDAR!"; btn.disabled = false; });
+        
+        // CORREÇÃO: Usando o e-mail direto e tratando o erro do FormSubmit
+        fetch("https://formsubmit.co/ajax/vaidormironde@gmail.com", { 
+            method: "POST", 
+            body: formData 
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Erro no FormSubmit");
+            return response.json();
+        })
+        .then(data => { 
+            document.getElementById('conteudoForm').style.display = 'none'; 
+            document.getElementById('telaPagamento').style.display = 'block'; 
+            window.scrollTo(0,0); 
+        })
+        .catch(error => { 
+            alert("Aviso: Confirme a ativação do formulário no seu e-mail (vaidormironde@gmail.com) ou desative seu AdBlock para concluir o pedido."); 
+            btn.innerText = "🚀 FECHAR PEDIDO E AJUDAR!"; 
+            btn.disabled = false; 
+        });
+
     };
 
     window.onload = () => { mascaraCampos(); inicializarCampanha(); calcularTotal(); };
