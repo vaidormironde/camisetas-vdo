@@ -128,23 +128,18 @@
 <div class="container">
     <div id="conteudoForm">
         <div class="header">
-            <!-- BANNER ADICIONADO NO LUGAR DO TÍTULO ANTIGO -->
             <img src="img/BANNER_AVELA.png" alt="Força Avelã" class="img-banner">
-            
             <q class="texto-emocional">A Avelã está em tratamento de um câncer agressivo no coração e criamos esse combo especial de adesivos para arrecadar fundos.</q>
         </div>
 
-        <!-- CARROSSEL DE IMAGENS DOS ADESIVOS -->
         <div class="hero-carousel" id="carrosselAdesivos">
             <button class="carousel-control control-prev" onclick="mudarSlideAdesivo(-1)">&#10094;</button>
             <div id="slidesContainer"></div>
             <button class="carousel-control control-next" onclick="mudarSlideAdesivo(1)">&#10095;</button>
         </div>
         
-        <!-- RESTANTE DO TEXTO EMOCIONAL MOVIDO PARA CÁ -->
         <p class="texto-emocional" style="margin-bottom: 30px;">Fomos surpreendidos por essa notícia enquanto percorremos o Canadá e não estamos medindo esforços pra dar toda qualidade de vida pra ela. Todo o valor será revertido para a saúde dela. Muito obrigado por fazer parte dessa rede de apoio! 💛</p>
 
-        <!-- TERMÔMETRO DA CAMPANHA -->
         <div class="progress-box">
             <div class="progress-title">📈 Meta da Campanha!</div>
             <div class="progress-bar-container">
@@ -156,14 +151,16 @@
         </div>
 
         <form id="formVDO">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="RESUMO_DO_PEDIDO" id="resumoInput">
+            <!-- CHAVE DE ACESSO WEB3FORMS -->
+            <input type="hidden" name="access_key" value="e39941ed-2417-488a-8968-aaf3d653b38f">
             
-            <!-- EMAIL AUTOMÁTICO DO FORMSUBMIT COM NOVO AVISO DE 2 DIAS -->
-            <input type="hidden" name="_autoresponse" value="Olá! Recebemos o seu pedido do Combo Avelã com sucesso! 🐾💛 Este é um e-mail automático apenas para confirmar que seus dados chegaram para nós. Muito obrigado de coração por nos apoiar no tratamento da nossa menina! Para validar a sua doação e garantir seus adesivos, lembre-se de realizar o Pix no valor exato do seu pedido para a chave: vaidormironde@gmail.com. Se você já fez o Pix logo após fechar o pedido, não se preocupe, é só aguardar! Nós vamos checar e enviaremos um novo e-mail confirmando o pagamento em no máximo 2 dias. Bem-vindo(a) ao time Avelover! 🚐💨">
+            <!-- CONFIGURAÇÕES DE EMAIL -->
+            <input type="hidden" name="subject" value="🐾 NOVO PEDIDO COMBO AVELÃ">
+            <input type="hidden" name="from_name" value="Campanha Avelã">
+            <input type="hidden" name="replyto" id="replyToEmail" value="">
+            
+            <input type="hidden" name="RESUMO_DO_PEDIDO" id="resumoInput">
 
-            <!-- CARD DO COMBO SOLIDÁRIO -->
             <div class="combo-card">
                 <h3 class="combo-title">💌 ADESIVOS #FORÇAAVELÃ</h3>
                 <p class="combo-desc">2x Adesivos Exclusivos<br><strong>Valor Mínimo: R$ 35,00</strong> (Frete Grátis)</p>
@@ -198,7 +195,6 @@
                 </div>
             </div>
 
-            <!-- CAMISETAS OCULTAS -->
             <div class="divisor-camisetas" style="display: none;">
                 <h3>👕 Quer adicionar uma camiseta?</h3>
                 <img src="img/vitrine-camisetas.png" alt="Camisetas VDO" class="img-vitrine-pequena">
@@ -207,7 +203,6 @@
                 <button type="button" class="btn-adicionar" onclick="adicionarCamiseta()">+ ADICIONAR UMA CAMISETA</button>
             </div>
 
-            <!-- FORMULÁRIO DE CLIENTE -->
             <div class="secao-cliente">
                 <div class="secao-titulo">👤 Pra gente enviar seu pacote!</div>
                 <label>Qual o seu nome completo?</label>
@@ -264,7 +259,6 @@
         </form>
     </div>
 
-    <!-- TELA DE SUCESSO PIX -->
     <div id="telaPagamento">
         <h2 style="color: #e91e63; margin-bottom: 5px;">🐾 Obrigado pelo apoio!</h2>
         <p style="font-size: 15px; font-weight: 600; color: var(--vdo-blue-dark);">A Avelã mandou um lambeijo de agradecimento! 💛<br>Agora basta realizar o pagamento via Pix:</p>
@@ -281,26 +275,19 @@
 </div>
 
 <script>
-    // ==========================================
-    // ⚙️ CONFIGURAÇÕES DA CAMPANHA AVELÃ
-    // ==========================================
-    const valorGasto = 89408;      // Meta (Custo do tratamento)
-    const valorArrecadado = 51143; // Quanto já foi doado até agora
+    const valorGasto = 36000;      
+    const valorArrecadado = 2500; 
     
-    // Nomes das imagens dos adesivos e mockups na pasta img
     const imagensAdesivo = [
-        "img/tela_insta2.png", // Imagem 1
-        "img/tela_insta.png", // Imagem 2 (Ex: Mockup colado)
-        "img/ADESIVOS.png"  // Imagem 3 
+        "img/tela_insta2.png", 
+        "img/tela_insta.png", 
+        "img/ADESIVOS.png"  
     ];
 
     const precoComboBase = 35.00;
     let qtdCombo = 1;
     let valorDoacaoExtra = 0;
 
-    // ==========================================
-    // 💰 PAINEL DE CONTROLE (Camisetas e Estoque)
-    // ==========================================
     const precoAdulto = 95.00;
     const precoInfantil = 85.00;
     const chavePix = "vaidormironde@gmail.com";
@@ -323,9 +310,6 @@
 
     let contador = 0; let indicesCarrossel = {};
 
-    // ==========================================
-    // 🚀 LÓGICA DA CAMPANHA (Barra e Carrossel)
-    // ==========================================
     function inicializarCampanha() {
         const porcentagem = Math.min(((valorArrecadado / valorGasto) * 100).toFixed(1), 100);
         document.getElementById('txtPorcentagem').innerText = porcentagem;
@@ -388,21 +372,22 @@
         displayBadge.classList.add('animar-pulso');
     }
 
-    // ==========================================
-    // 👕 LÓGICA DAS CAMISETAS E FORMULÁRIO
-    // ==========================================
     const mascaraCampos = () => {
         document.getElementById('inputCEP').addEventListener('input', (e) => {
             let v = e.target.value.replace(/\D/g, ""); v = v.replace(/^(\d{5})(\d)/, "$1-$2"); e.target.value = v;
         });
         
-        // MÁSCARA DE WHATSAPP FLEXÍVEL
         document.getElementById('inputWhatsApp').addEventListener('input', (e) => {
             e.target.value = e.target.value.replace(/[^\d+()\s-]/g, "");
         });
 
         document.getElementById('inputCPF').addEventListener('input', (e) => {
             let v = e.target.value.replace(/\D/g, ""); v = v.replace(/(\d{3})(\d)/, "$1.$2"); v = v.replace(/(\d{3})(\d)/, "$1.$2"); v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); e.target.value = v;
+        });
+
+        // Configurar o campo de email de resposta automático para o Web3Forms
+        document.getElementById('emailCliente').addEventListener('input', (e) => {
+            document.getElementById('replyToEmail').value = e.target.value;
         });
     };
 
@@ -561,13 +546,13 @@
         
         const formData = new FormData(this);
         
-        // CORREÇÃO: Usando o e-mail direto e tratando o erro do FormSubmit
-        fetch("https://formsubmit.co/ajax/vaidormironde@gmail.com", { 
+        // NOVA CONEXÃO: WEB3FORMS (MUITO MAIS RÁPIDA E ESTÁVEL)
+        fetch("https://api.web3forms.com/submit", { 
             method: "POST", 
             body: formData 
         })
         .then(response => {
-            if (!response.ok) throw new Error("Erro no FormSubmit");
+            if (!response.ok) throw new Error("Erro de conexão");
             return response.json();
         })
         .then(data => { 
@@ -576,11 +561,10 @@
             window.scrollTo(0,0); 
         })
         .catch(error => { 
-            alert("Aviso: Confirme a ativação do formulário no seu e-mail (vaidormironde@gmail.com) ou desative seu AdBlock para concluir o pedido."); 
-            btn.innerText = "🚀 FECHAR PEDIDO E AJUDAR!"; 
+            alert("Oops! Tivemos um erro de conexão. Por favor, tente clicar em enviar novamente."); 
+            btn.innerText = "🚀 FECHAR PEDIDO E FAZER PARTE DO TIME AVELOVER!"; 
             btn.disabled = false; 
         });
-
     };
 
     window.onload = () => { mascaraCampos(); inicializarCampanha(); calcularTotal(); };
